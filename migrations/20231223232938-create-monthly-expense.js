@@ -5,7 +5,7 @@ const { TABLES } = require("../src/tables");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable(TABLES.EXPENSES, {
+    await queryInterface.createTable(TABLES.MONTHLY_EXPENSES, {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,14 +16,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DOUBLE,
       },
-      expenseCategoryId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: TABLES.EXPENSE_CATEGORIES,
-          key: "id",
-        },
-      },
       name: {
         allowNull: true,
         type: Sequelize.STRING,
@@ -31,6 +23,14 @@ module.exports = {
       details: {
         allowNull: true,
         type: Sequelize.STRING,
+      },
+      expenseCategoryId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: TABLES.EXPENSE_CATEGORIES,
+          key: "id",
+        },
       },
       expenseSubcategoryId: {
         type: Sequelize.INTEGER,
@@ -46,16 +46,11 @@ module.exports = {
           key: "id",
         },
       },
-      monthlyExpenseId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: TABLES.MONTHLY_EXPENSES,
-          key: "id",
-        },
+      startMonth: {
+        type: Sequelize.STRING,
       },
-      date: {
-        type: Sequelize.DATE,
-        allowNull: false,
+      endMonth: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -69,6 +64,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable(TABLES.EXPENSES);
+    await queryInterface.dropTable(TABLES.MONTHLY_EXPENSES);
   },
 };

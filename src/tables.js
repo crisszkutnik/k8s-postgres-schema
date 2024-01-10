@@ -7,6 +7,8 @@ const TABLES = {
   EXPENSE_SUBCATEGORIES: "ExpenseSubcategories",
   EXPENSES: "Expenses",
   MONTHLY_EXPENSES: "MonthlyExpenses",
+  PAYMENT_METHOD: "PaymentMethods",
+  USD_EXCHANGE_RATE: "UsdExchangeRate",
 };
 
 module.exports = {

@@ -5,36 +5,25 @@ const { TABLES } = require("../src/tables");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable(TABLES.MONTHLY_EXPENSES, {
+    await queryInterface.createTable(TABLES.PAYMENT_METHOD, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      amount: {
-        allowNull: false,
-        type: Sequelize.DOUBLE,
-      },
-      expenseCategoryId: {
-        allowNull: false,
+      userId: {
         type: Sequelize.INTEGER,
         references: {
-          model: TABLES.EXPENSE_CATEGORIES,
+          model: TABLES.USERS,
           key: "id",
         },
       },
-      expenseSubcategoryId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: TABLES.EXPENSE_SUBCATEGORIES,
-          key: "id",
-        },
-      },
-      startMonth: {
+      name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      endMonth: {
+      color: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -49,6 +38,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable(TABLES.MONTHLY_EXPENSES);
+    await queryInterface.dropTable(TABLES.PAYMENT_METHOD);
   },
 };

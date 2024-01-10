@@ -1,5 +1,6 @@
 "use strict";
 
+const { getNow } = require("../src/helpers");
 const { TABLES } = require("../src/tables");
 
 /** @type {import('sequelize-cli').Migration} */
@@ -17,7 +18,6 @@ module.exports = {
         type: Sequelize.DOUBLE,
       },
       expenseCategoryId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: TABLES.EXPENSE_CATEGORIES,
@@ -25,11 +25,9 @@ module.exports = {
         },
       },
       name: {
-        allowNull: true,
         type: Sequelize.STRING,
       },
       details: {
-        allowNull: true,
         type: Sequelize.STRING,
       },
       expenseSubcategoryId: {
@@ -39,8 +37,17 @@ module.exports = {
           key: "id",
         },
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: TABLES.USERS,
+          key: "id",
+        },
+      },
       paymentMethodId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: TABLES.PAYMENT_METHOD,
           key: "id",
@@ -60,10 +67,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: getNow(),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: getNow(),
       },
     });
   },

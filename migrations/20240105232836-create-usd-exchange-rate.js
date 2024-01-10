@@ -1,5 +1,6 @@
 "use strict";
 
+const { getNow } = require("../src/helpers");
 const { TABLES } = require("../src/tables");
 
 /** @type {import('sequelize-cli').Migration} */
@@ -13,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       timestamp: {
-        type: Sequelize.TIME,
+        type: Sequelize.DATE,
       },
       day: {
         type: Sequelize.STRING(2),
@@ -43,9 +44,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DOUBLE,
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: getNow(),
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: getNow(),
+      },
     });
     await queryInterface.addIndex(TABLES.USD_EXCHANGE_RATE, [
-      "day",
       "month",
       "year",
       "timestamp",

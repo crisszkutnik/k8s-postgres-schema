@@ -1,5 +1,6 @@
 "use strict";
 
+const { getNow } = require("../src/helpers");
 const { TABLES } = require("../src/tables");
 
 /** @type {import('sequelize-cli').Migration} */
@@ -29,10 +30,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: getNow(),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: getNow(),
       },
     });
   },
